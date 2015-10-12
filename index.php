@@ -5,10 +5,11 @@ $db = mysqli_connect('127.0.0.1', 'root', '', 'cleanblog') or die(mysqli_error($
 mysqli_query($db, "SET NAMES 'utf8'");
 
 //retrieve data from database
-$q = mysqli_query($db, 'SELECT * FROM posts');
+$q = mysqli_query($db, "SELECT * FROM posts NATURAL JOIN authors");
 while ($row = mysqli_fetch_assoc($q)) {
     $posts[] = $row;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +49,9 @@ while ($row = mysqli_fetch_assoc($q)) {
 </head>
 
 <body>
+<?php
 
+?>
 <!-- Navigation -->
 <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
     <div class="container-fluid">
@@ -107,23 +110,23 @@ while ($row = mysqli_fetch_assoc($q)) {
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-            <? foreach ($posts as $post) ; ?>
-            <div class="post-preview">
-                <a href="post.html">
-                    <h2 class="post-title">
-                        Man must explore, and this is exploration at its greatest
-                    </h2>
 
-                    <h3 class="post-subtitle">
-                        Problems look mighty small from 150 miles up
-                    </h3>
+            <? foreach ($posts as $post): ?>
+            <div class="post-preview">
+
+                <a href="post.html">
+                    <h2 class="post-title"><?= $post['post_title'] ?></h2>
+
+                    <h3 class="post-subtitle"><?= $post['post_description'] ?></h3>
                 </a>
 
-                <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
+                <p class="post-meta">Posted by<a href="#"><? $post['author_name'] ?></a> on <?= $post['post_created'] ?>
+                </p>
+
             </div>
-            <hr>
+
+                <hr>
             <? endforeach ?>
-            }
 
 
             <!-- Pager -->
