@@ -5,8 +5,8 @@ $page_load_start = microtime(1);
 require 'include/database.php';
 
 // Set page
-$page = !empty($_GET['page']) && file_exists("pages/$page.php") ? $_GET['page'] : 'home';
-
+$page = !empty($_GET['page']) && file_exists("pages/$_GET[page].php") ? $_GET['page'] : 'home';
+var_dump($page);
 //Include required page
 
 require "templates/master_template.php";
